@@ -1,5 +1,7 @@
 package com.example.bee_shirt.controller;
 
+import com.example.bee_shirt.EntityThuocTinh.Season;
+import com.example.bee_shirt.repository.SeasonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
