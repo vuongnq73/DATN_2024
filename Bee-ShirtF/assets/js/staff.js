@@ -42,14 +42,35 @@ angular
         avatarFile: null, // File ảnh đại diện từ input
         role: [],
       };
-      $scope.hasPermission = true;
       $scope.currentPage = 1;
       $scope.totalPages = 0;
       $scope.pageSize = 5; // Số lượng nhân viên trên mỗi trang
 
       $scope.availableRoles = ["ADMIN", "STAFF", "USER"]; // Danh sách role có sẵn
 
-      //set role
+      // Hàm kiểm tra quyền
+      function checkPermission() {
+        const token = sessionStorage.getItem("jwtToken");
+        if (!token) {
+          alert("Bạn chưa đăng nhập!");
+          window.location.href = "/assets/account/login.html";
+          return false;
+        }
+
+        const payload = JSON.parse(atob(token.split(".")[1]));
+        const highestRole = getHighestRole(payload.scope);
+
+        if (highestRole !== "ROLE_ADMIN") {
+          alert("Bạn không có quyền truy cập vào trang này!");
+          window.location.href = "/assets/BanHang.html";
+          return false;
+        }
+
+        return true;
+      }
+
+      if (!checkPermission()) return;
+
       function getHighestRole(scopes) {
         const roles = scopes ? scopes.split(" ") : [];
         const rolePriority = {
@@ -63,38 +84,6 @@ angular
 
         return validRoles[0] || null;
       }
-
-      // Hàm kiểm tra quyền
-      function checkPermission() {
-        const token = sessionStorage.getItem("jwtToken");
-        if (!token) {
-          alert("Bạn chưa đăng nhập!");
-          window.location.href = "/assets/account/login.html";
-          return false;
-        }
-
-        const payload = JSON.parse(atob(token.split(".")[1]));
-
-        // Cả 2 quyền đều có truy cập
-        // const roles = payload.scope ? payload.scope.split(" ") : [];
-
-        // if (!roles.includes("ROLE_STAFF") && !roles.includes("ROLE_ADMIN")) {
-        //   alert("Bạn không có quyền truy cập vào trang này!");
-        //   window.history.back();
-        //   return false;
-        // }
-
-        const highestRole = getHighestRole(payload.scope);
-
-        if (highestRole !== "ROLE_ADMIN") {
-          alert("Bạn không có quyền truy cập vào trang này!");
-          $window.history.back();
-          return false;
-        }
-        return true;
-      }
-
-      if (!checkPermission()) return;
 
       // Hàm xem profile
       $scope.viewProfile = function () {
