@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 
 <head>
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Bee-Shirt Admin Dashboard</title>
   <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
   <link rel="icon" href="img/kaiadmin/favicon.ico" type="image/x-icon" />
-
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="js/productShirt.js"></script>
+  <link rel="stylesheet" href="css/productShirt.css">
   <!-- Fonts and icons -->
   <script src="js/plugin/webfont/webfont.min.js"></script>
   <script>
@@ -36,7 +38,7 @@
   <link rel="stylesheet" href="css/demo.css" />
 </head>
 
-<body>
+<body >
   <div class="wrapper">
     <!-- Sidebar -->
     <div class="sidebar" data-background-color="dark">
@@ -63,7 +65,7 @@
       <div class="sidebar-wrapper scrollbar scrollbar-inner">
         <div class="sidebar-content">
           <ul class="nav nav-secondary">
-            <li class="nav-item">
+            <li class="nav-item ">
               <a href="BanHang.html" class="collapsed" aria-expanded="false">
                 <i class="fas fa-home"></i>
                 <p>Bán Hàng</p>
@@ -107,7 +109,7 @@
                 <span class="sub-item">Hóa Đơn</span>
               </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active submenu">
               <a data-bs-toggle="collapse" href="#tables">
                 <i class="fas fa-table"></i>
                 <p>Sản Phẩm</p>
@@ -116,15 +118,20 @@
               <div class="collapse" id="tables">
                 <ul class="nav nav-collapse">
                   <li>
-                    <a href="#">
-                      <span class="sub-item">Basic Table</span>
+                    <a href="Products.html">
+                      <span class="sub-item">Danh sách sản phẩm</span>
                     </a>
                   </li>
-              
+                  <li>
+                    <a href="addProduct.html">
+                      <span class="sub-item">Thêm sản phẩm</span>
+                    </a>
+                  </li>
+                 
                 </ul>
               </div>
             </li>
-            <li class="nav-item active submenu">
+            <li class="nav-item">
               <a data-bs-toggle="collapse" href="#account">
                 <i class="fas fa-user"></i>
                 <p>Account</p>
@@ -136,7 +143,7 @@
                     <a href="Staff.html">
                       <span class="sub-item">Nhân Viên</span>
                     </a>
-                  </li>
+                  </li>https://meet.google.com/pfo-mdiq-ufz
                   <li>
                     <a href="Customer.html">
                       <span class="sub-item">Khách Hàng</span>
@@ -262,6 +269,7 @@
                         <a href="#">
                           <div class="notif-img">
                             <img src="img/mlane.jpg" alt="Img Profile" />
+                            
                           </div>
                           <div class="notif-content">
                             <span class="subject">Đỗ Trung Đăng</span>
@@ -480,42 +488,153 @@
 <!-- container -->
       <div class="container">
         <div class="page-inner">
-          <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
-            <div>
-              <h3 class="fw-bold mb-3">Khách hàng ở đây nhé</h3>
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <a class="nav-link active" id="tab1-tab" data-bs-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="true">Thêm Danh Mục Sản Phẩm</a>
+            </li>
+            <li class="nav-item" role="presentation">
+              <a class="nav-link" id="tab2-tab" data-bs-toggle="tab" href="#tab2" role="tab" aria-controls="tab2" aria-selected="false">Thêm Sản Phẩm</a>
+            </li>
+            <li class="nav-item" role="presentation">
+              <a class="nav-link" id="tab3-tab" data-bs-toggle="tab" href="#tab3" role="tab" aria-controls="tab3" aria-selected="false">Thêm Chi Tiết Sản Phẩm</a>
+            </li>
+            <li class="nav-item" role="presentation">
+              <a class="nav-link" id="tab4-tab" data-bs-toggle="tab" href="#tab4" role="tab" aria-controls="tab4" aria-selected="false">Thêm Thuộc Tính</a>
+            </li>
+          </ul>
+          
+          <div class="tab-content" id="myTabContent">
+            <!-- Form Thêm Danh Mục -->
+            <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
+              
             </div>
-           
+          
+            <!-- Form Thêm Sản Phẩm -->
+             <div class="container" ng-app="beeShirtApp" ng-controller="ShirtController">
+            <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">
+              <form ng-submit="addShirt()">
+                <div class="row">
+                  <div class="col-12 col-md-6 mb-3">
+                    <label for="nameShirt" class="form-label">Tên Áo:</label>
+                    <input type="text" id="nameShirt" ng-model="newShirt.nameShirt" class="form-control" required>
+                  </div>
+            
+                  <div class="col-12 col-md-6 mb-3">
+                    <label for="brand" class="form-label">Thương Hiệu:</label>
+                    <select id="brand" ng-model="newShirt.brand.id" class="form-select" required>
+                      <option value="" disabled selected>Chọn Thương Hiệu</option>
+                      <option ng-repeat="brand in brands" ng-value="brand.id">{{ brand.nameBrand }}</option>
+                    </select>
+                  </div>
+            
+                  <div class="col-12 col-md-6 mb-3">
+                    <label for="category" class="form-label">Danh Mục:</label>
+                    <select id="category" ng-model="newShirt.category.id" class="form-select" required>
+                      <option value="" disabled selected>Chọn Danh Mục</option>
+                      <option ng-repeat="category in categories" ng-value="category.id">{{ category.nameCategory }}</option>
+                    </select>
+                  </div>
+            
+                  <div class="col-12 mb-3">
+                    <button type="submit" class="btn btn-primary">Thêm</button>
+                  </div>
+                </div>
+              </form>
+            </div>
           </div>
+            <!-- Form Thêm Chi Tiết Sản Phẩm -->
+            <div class="container" ng-app="beeShirtDetail" ng-controller="ShirtDetailController">
+              <div class="tab-pane fade" id="tab3" role="tabpanel" aria-labelledby="tab3-tab">
+                <h2>Thêm Chi Tiết Áo Thun</h2>
+        <form ng-submit="addShirtDetail()">
+          <div class="mb-3">
+              <label for="shirt" class="form-label">Loại Sản Phẩm:</label>
+              <select id="shirt" ng-model="newShirtDetail.shirt.id" class="form-select" required>
+                  <option value="" disabled selected>Chọn Sản Phẩm</option>
+                  <option ng-repeat="shirt in shirts" ng-value="shirt.id">{{ shirt.nameshirt }}</option>
+              </select>
+          </div>
+      
+          <div class="mb-3">
+              <label for="price" class="form-label">Giá</label>
+              <input type="number" class="form-control" id="price" ng-model="newShirtDetail.price" required>
+          </div>
+      
+          <div class="mb-3">
+              <label for="quantity" class="form-label">Số Lượng</label>
+              <input type="number" class="form-control" id="quantity" ng-model="newShirtDetail.quantity" required>
+          </div>
+      
+          <div class="mb-3">
+              <label for="color" class="form-label">Màu Sắc</label>
+              <select class="form-select" id="color" ng-model="newShirtDetail.color.id" required>
+                  <option value="" disabled selected>Chọn Màu</option>
+                  <option ng-repeat="color in colors" ng-value="color.id">{{color.nameColor}}</option>
+              </select>
+          </div>
+      
+          <div class="mb-3">
+              <label for="gender" class="form-label">Giới Tính</label>
+              <select class="form-select" id="gender" ng-model="newShirtDetail.gender.id" required>
+                  <option value="" disabled selected>Chọn Giới Tính</option>
+                  <option ng-repeat="gender in genders" ng-value="gender.id">{{gender.nameGender}}</option>
+              </select>
+          </div>
+      
+          <div class="mb-3">
+              <label for="material" class="form-label">Chất Liệu</label>
+              <select class="form-select" id="material" ng-model="newShirtDetail.material.id" required>
+                  <option value="" disabled selected>Chọn Chất Liệu</option>
+                  <option ng-repeat="material in materials" ng-value="{{material.id}}">{{material.nameMaterial}}</option>
+              </select>
+          </div>
+      
+          <div class="mb-3">
+              <label for="pattern" class="form-label">Họa Tiết</label>
+              <select class="form-select" id="pattern" ng-model="newShirtDetail.pattern.id" required>
+                  <option value="" disabled selected>Chọn Họa Tiết</option>
+                  <option ng-repeat="pattern in patterns" ng-value="pattern.id">{{pattern.namePattern}}</option>
+              </select>
+          </div>
+      
+          <div class="mb-3">
+              <label for="season" class="form-label">Mùa</label>
+              <select class="form-select" id="season" ng-model="newShirtDetail.season.id" required>
+                  <option value="" disabled selected>Chọn Mùa</option>
+                  <option ng-repeat="season in seasons" ng-value="season.id">{{season.nameSeason}}</option>
+              </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="origin" class="form-label">Xuất xứ</label>
+            <select class="form-select" id="origin" ng-model="newShirtDetail.origin.id" required>
+              <option value="" disabled selected>Chọn Xuất Xứ</option>
+              <option ng-repeat="origin in origins" ng-value="origin.id">{{origin.nameOrigin}}</option>
+            </select>
+        </div>
+
+          <div class="mb-3">
+              <label for="size" class="form-label">Kích Cỡ</label>
+              <select class="form-select" id="size" ng-model="newShirtDetail.size.id" required>
+                  <option value="" disabled selected>Chọn Kích Cỡ</option>
+                  <option ng-repeat="size in sizes" ng-value="size.id">{{size.namesize}}</option>
+              </select>
+          </div>
+      
+          <button type="submit" class="btn btn-primary">Thêm Chi Tiết</button>
+      </form>
+              </div>
+          </div>
+            <!-- Form Thêm Thuộc Tính -->
+            <div class="tab-pane fade" id="tab4" role="tabpanel" aria-labelledby="tab4-tab">
+              <form ng-submit="addAttribute()">
+               
+          </div>
+          
         </div>
       </div>
    <!-- end container -->
-      <footer class="footer">
-        <div class="container-fluid d-flex justify-content-between">
-          <nav class="pull-left">
-            <ul class="nav">
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  Home
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#"> Help </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#"> Licenses </a>
-              </li>
-            </ul>
-          </nav>
-          <div class="copyright">
-            2024, made with <i class="fa fa-heart heart text-danger"></i> by
-            <a href="#">5 Anh Em Siêu Nhân</a>
-          </div>
-          <div>
-            Distributed by
-            <a target="_blank" href="https://themewagon.com/">Bee-Shirt</a>.
-          </div>
-        </div>
-      </footer>
+      
     </div>
 
     <!-- Custom template | don't include it in your project! -->
@@ -586,6 +705,7 @@
   <script src="js/core/popper.min.js"></script>
   <script src="js/core/bootstrap.min.js"></script>
 
+ 
   <!-- jQuery Scrollbar -->
   <script src="js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
 

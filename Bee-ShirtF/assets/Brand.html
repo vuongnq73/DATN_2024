@@ -1,12 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="BrandApp">
 
 <head>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Bee-Shirt Admin Dashboard</title>
-  <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
-  <link rel="icon" href="img/kaiadmin/favicon.ico" type="image/x-icon" />
+  <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport">
+  <link rel="icon" href="img/kaiadmin/favicon.ico" type="image/x-icon">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="js/brand.js"></script>
+  <link rel="stylesheet" href="css/productShirt.css">
+   <!-- Bootstrap CSS v5.2.1 -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
   <!-- Fonts and icons -->
   <script src="js/plugin/webfont/webfont.min.js"></script>
   <script>
@@ -28,15 +36,15 @@
   </script>
 
   <!-- CSS Files -->
-  <link rel="stylesheet" href="css/bootstrap.min.css" />
-  <link rel="stylesheet" href="css/plugins.min.css" />
-  <link rel="stylesheet" href="css/kaiadmin.min.css" />
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/plugins.min.css">
+  <link rel="stylesheet" href="css/kaiadmin.min.css">
 
   <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link rel="stylesheet" href="css/demo.css" />
+  <link rel="stylesheet" href="css/demo.css">
 </head>
 
-<body>
+<body ng-controller="brandController">
   <div class="wrapper">
     <!-- Sidebar -->
     <div class="sidebar" data-background-color="dark">
@@ -63,7 +71,7 @@
       <div class="sidebar-wrapper scrollbar scrollbar-inner">
         <div class="sidebar-content">
           <ul class="nav nav-secondary">
-            <li class="nav-item">
+            <li class="nav-item ">
               <a href="BanHang.html" class="collapsed" aria-expanded="false">
                 <i class="fas fa-home"></i>
                 <p>Bán Hàng</p>
@@ -107,7 +115,7 @@
                 <span class="sub-item">Hóa Đơn</span>
               </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active submenu">
               <a data-bs-toggle="collapse" href="#tables">
                 <i class="fas fa-table"></i>
                 <p>Sản Phẩm</p>
@@ -116,15 +124,20 @@
               <div class="collapse" id="tables">
                 <ul class="nav nav-collapse">
                   <li>
-                    <a href="#">
-                      <span class="sub-item">Basic Table</span>
+                    <a href="Products.html">
+                      <span class="sub-item">Danh sách sản phẩm</span>
                     </a>
                   </li>
-              
+                  <li>
+                    <a href="addProduct.html">
+                      <span class="sub-item">Thêm sản phẩm</span>
+                    </a>
+                  </li>
+                 
                 </ul>
               </div>
             </li>
-            <li class="nav-item active submenu">
+            <li class="nav-item">
               <a data-bs-toggle="collapse" href="#account">
                 <i class="fas fa-user"></i>
                 <p>Account</p>
@@ -136,7 +149,7 @@
                     <a href="Staff.html">
                       <span class="sub-item">Nhân Viên</span>
                     </a>
-                  </li>
+                  </li>https://meet.google.com/pfo-mdiq-ufz
                   <li>
                     <a href="Customer.html">
                       <span class="sub-item">Khách Hàng</span>
@@ -262,6 +275,7 @@
                         <a href="#">
                           <div class="notif-img">
                             <img src="img/mlane.jpg" alt="Img Profile" />
+                            
                           </div>
                           <div class="notif-content">
                             <span class="subject">Đỗ Trung Đăng</span>
@@ -480,42 +494,146 @@
 <!-- container -->
       <div class="container">
         <div class="page-inner">
-          <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
-            <div>
-              <h3 class="fw-bold mb-3">Khách hàng ở đây nhé</h3>
+            <h2>Danh sách Brand</h2>
+
+<!-- Bảng hiển thị danh sách Brand -->
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Mã Brand</th>
+            <th>Tên Brand</th>
+            <th>Trạng Thái</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="brand in brands">
+            <td>{{ brand.codeBrand }}</td>
+            <td>{{ brand.nameBrand }}</td>
+            <td>{{ brand.statusBrand == 1 ? 'Active' : 'Inactive' }}</td>
+            <td>
+                <button class="btn btn-warning" ng-click="editBrand(brand)">Xem Chi Tiết</button>
+                <button class="btn btn-danger" ng-click="deleteBrand(brand.codeBrand)">Xóa</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="d-flex justify-content-center mt-4">
+    <ul class="pagination">
+        <!-- Nút Đầu -->
+        <li class="page-item" ng-class="{'disabled': currentPage === 0}">
+            <button class="page-link" ng-click="goToPage(0)">Đầu</button>
+        </li>
+        
+        <!-- Nút Previous -->
+        <li class="page-item" ng-class="{'disabled': currentPage === 0}">
+            <button class="page-link" ng-click="goToPage(currentPage - 1)">Previous</button>
+        </li>
+
+        <!-- Các trang giữa -->
+        <li class="page-item" ng-repeat="page in pages" ng-class="{'active': currentPage === page}">
+            <button class="page-link" ng-click="goToPage(page)">{{ page + 1 }}</button>
+        </li>
+
+        <!-- Nút Next -->
+        <li class="page-item" ng-class="{'disabled': currentPage === totalPages - 1}">
+            <button class="page-link" ng-click="goToPage(currentPage + 1)">Next</button>
+        </li>
+
+        <!-- Nút Cuối -->
+        <li class="page-item" ng-class="{'disabled': currentPage === totalPages - 1}">
+            <button class="page-link" ng-click="goToPage(totalPages - 1)">Cuối</button>
+        </li>
+    </ul>
+</div>
+
+<!-- Nút Mở Modal Thêm Brand -->
+<button class="btn btn-success" ng-click="openAddBrandModal()" data-bs-toggle="modal" data-bs-target="#addBrandModal">Thêm Brand</button>
+
+<!-- Modal Thêm Brand -->
+<div class="modal fade" id="addBrandModal" tabindex="-1" aria-labelledby="addBrandModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addBrandModalLabel">Thêm Brand</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-           
-          </div>
+            <div class="modal-body">
+                <form ng-submit="saveNewBrand()">
+                    <div class="mb-3">
+                        <label for="codeBrand" class="form-label">Mã Brand:</label>
+                        <input type="text" id="codeBrand" ng-model="newBrand.codeBrand" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="nameBrand" class="form-label">Tên Brand:</label>
+                        <input type="text" id="nameBrand" ng-model="newBrand.nameBrand" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="statusBrand" class="form-label">Trạng Thái:</label>
+                        <div>
+                            <label>
+                                <input type="radio" ng-model="newBrand.statusBrand" value="1"> Active
+                            </label>
+                            <label>
+                                <input type="radio" ng-model="newBrand.statusBrand" value="0"> Inactive
+                            </label>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                        <button type="submit" class="btn btn-primary ms-2">Thêm Brand</button>
+                    </div>
+                </form>
+            </div>
         </div>
-      </div>
+    </div>
+</div>
+
+<!-- Modal Sửa Brand -->
+<div class="modal fade" id="editBrandModal" tabindex="-1" aria-labelledby="editBrandModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editBrandModalLabel">Sửa Brand</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form ng-submit="saveEditBrand()">
+                    <div class="mb-3">
+                        <label for="codeBrand" class="form-label">Mã Brand:</label>
+                        <input type="text" id="codeBrand" ng-model="brand.codeBrand" class="form-control" disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label for="nameBrand" class="form-label">Tên Brand:</label>
+                        <input type="text" id="nameBrand" ng-model="brand.nameBrand" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="statusBrand" class="form-label">Trạng Thái:</label>
+                        <div>
+                            <label>
+                                <input type="radio" ng-model="brand.statusBrand" value="1" ng-checked="brand.statusBrand === 1"> Hoạt Động
+                            </label>
+                            <label>
+                                <input type="radio" ng-model="brand.statusBrand" value="0" ng-checked="brand.statusBrand === 0"> Ngừng Hoạt Động
+                            </label>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                        <button type="submit" class="btn btn-primary ms-2">Cập nhật Brand</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    </div>
+
    <!-- end container -->
-      <footer class="footer">
-        <div class="container-fluid d-flex justify-content-between">
-          <nav class="pull-left">
-            <ul class="nav">
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  Home
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#"> Help </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#"> Licenses </a>
-              </li>
-            </ul>
-          </nav>
-          <div class="copyright">
-            2024, made with <i class="fa fa-heart heart text-danger"></i> by
-            <a href="#">5 Anh Em Siêu Nhân</a>
-          </div>
-          <div>
-            Distributed by
-            <a target="_blank" href="https://themewagon.com/">Bee-Shirt</a>.
-          </div>
-        </div>
-      </footer>
+      
     </div>
 
     <!-- Custom template | don't include it in your project! -->
@@ -586,6 +704,7 @@
   <script src="js/core/popper.min.js"></script>
   <script src="js/core/bootstrap.min.js"></script>
 
+ 
   <!-- jQuery Scrollbar -->
   <script src="js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
 

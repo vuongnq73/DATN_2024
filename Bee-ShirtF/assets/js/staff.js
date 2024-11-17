@@ -74,16 +74,6 @@ angular
         }
 
         const payload = JSON.parse(atob(token.split(".")[1]));
-
-        // Cả 2 quyền đều có truy cập
-        // const roles = payload.scope ? payload.scope.split(" ") : [];
-
-        // if (!roles.includes("ROLE_STAFF") && !roles.includes("ROLE_ADMIN")) {
-        //   alert("Bạn không có quyền truy cập vào trang này!");
-        //   window.history.back();
-        //   return false;
-        // }
-
         const highestRole = getHighestRole(payload.scope);
 
         if (highestRole !== "ROLE_ADMIN") {
