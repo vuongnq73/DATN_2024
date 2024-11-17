@@ -9,8 +9,17 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+<<<<<<< Updated upstream
 @RestController
 @RequestMapping("/api/genders")
+=======
+import java.util.Random;
+
+@RestController
+@RequestMapping("/api/genders")
+@CrossOrigin(origins = "http://127.0.0.1:5500") // Cấu hình CORS cho endpoint này
+
+>>>>>>> Stashed changes
 public class GenderController {
 
     @Autowired
@@ -27,6 +36,14 @@ public class GenderController {
     // Thêm Gender
     @PostMapping("/add")
     public ResponseEntity<Gender> addGender(@RequestBody Gender gender) {
+<<<<<<< Updated upstream
+=======
+        String codeCategory = generateGenderCode();
+
+        // Cập nhật mã codeCategory vào đối tượng Category
+        gender.setCodeGender(codeCategory);
+
+>>>>>>> Stashed changes
         Gender savedGender = genderRepository.save(gender);
         return ResponseEntity.ok(savedGender);
     }
@@ -67,4 +84,14 @@ public class GenderController {
         Gender gender = genderRepository.findByCodeGender(codeGender);
         return ResponseEntity.ok(gender);
     }
+<<<<<<< Updated upstream
+=======
+    // Hàm tạo mã ngẫu nhiên cho Gender
+    private String generateGenderCode() {
+        Random random = new Random();
+        int randomCode = random.nextInt(100000);  // Sinh số ngẫu nhiên trong phạm vi từ 0 - 99999
+        return "G" + String.format("%05d", randomCode);  // Đảm bảo mã luôn có 5 chữ số
+    }
+
+>>>>>>> Stashed changes
 }

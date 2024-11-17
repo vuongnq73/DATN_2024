@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/brands")
+<<<<<<< Updated upstream
+=======
+@CrossOrigin(origins = "http://127.0.0.1:5500") // Cấu hình CORS cho endpoint này
+>>>>>>> Stashed changes
 public class BrandController {
 
     @Autowired

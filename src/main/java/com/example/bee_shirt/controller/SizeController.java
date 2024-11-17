@@ -9,8 +9,17 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+<<<<<<< Updated upstream
 @RestController
 @RequestMapping("/api/sizes")
+=======
+import java.util.Random;
+
+@RestController
+@RequestMapping("/api/sizes")
+@CrossOrigin(origins = "http://127.0.0.1:5500") // Cấu hình CORS cho endpoint này
+
+>>>>>>> Stashed changes
 public class SizeController {
 
     @Autowired
@@ -27,6 +36,14 @@ public class SizeController {
     // Thêm kích thước
     @PostMapping("/add")
     public ResponseEntity<Size> addSize(@RequestBody Size size) {
+<<<<<<< Updated upstream
+=======
+        String codeCategory = generateSizeCode();
+
+        // Cập nhật mã codeCategory vào đối tượng Category
+        size.setCodeSize(codeCategory);
+
+>>>>>>> Stashed changes
         Size savedSize = sizeRepository.save(size);
         return ResponseEntity.ok(savedSize);
     }
@@ -43,6 +60,10 @@ public class SizeController {
         size.setCodeSize(updatedDetails.getCodeSize());
         size.setNamesize(updatedDetails.getNamesize());
         size.setStatussize(updatedDetails.getStatussize());
+<<<<<<< Updated upstream
+=======
+        size.setDeleted(updatedDetails.isDeleted());
+>>>>>>> Stashed changes
         Size updatedSize = sizeRepository.save(size);
         return ResponseEntity.ok(updatedSize);
     }
@@ -67,4 +88,14 @@ public class SizeController {
         Size size = sizeRepository.findByCodeSize(codeSize);
         return ResponseEntity.ok(size);
     }
+<<<<<<< Updated upstream
+=======
+    // Hàm tạo mã ngẫu nhiên cho Size
+    private String generateSizeCode() {
+        Random random = new Random();
+        int randomCode = random.nextInt(100000);  // Sinh số ngẫu nhiên trong phạm vi từ 0 - 99999
+        return "S" + String.format("%05d", randomCode);  // Đảm bảo mã luôn có 5 chữ số
+    }
+
+>>>>>>> Stashed changes
 }

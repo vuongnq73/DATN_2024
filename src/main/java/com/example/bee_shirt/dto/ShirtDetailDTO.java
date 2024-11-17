@@ -16,6 +16,7 @@ public class ShirtDetailDTO {
     private String nameShirt;
     private BigDecimal price;
     private int quantity;
+<<<<<<< Updated upstream
     private String pattern;
     private String gender;
     private String origin;
@@ -23,6 +24,15 @@ public class ShirtDetailDTO {
     private String size;
     private String material;
     private String color;
+=======
+    private String namePattern;
+    private String nameGender;
+    private String nameOrigin;
+    private String nameSeason;
+    private String nameSize;
+    private String nameMaterial;
+    private String nameColor;
+>>>>>>> Stashed changes
     private int statusshirtdetail;
     private String createBy;
     private Date createAt;

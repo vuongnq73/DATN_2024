@@ -9,8 +9,17 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+<<<<<<< Updated upstream
 @RestController
 @RequestMapping("/api/origins")
+=======
+import java.util.Random;
+
+@RestController
+@RequestMapping("/api/origins")
+@CrossOrigin(origins = "http://127.0.0.1:5500") // Cấu hình CORS cho endpoint này
+
+>>>>>>> Stashed changes
 public class OriginController {
 
     @Autowired
@@ -27,6 +36,14 @@ public class OriginController {
     // Thêm nguồn gốc
     @PostMapping("/add")
     public ResponseEntity<Origin> addOrigin(@RequestBody Origin origin) {
+<<<<<<< Updated upstream
+=======
+        String codeCategory = generateOriginCode();
+
+        // Cập nhật mã codeCategory vào đối tượng Category
+        origin.setCodeOrigin(codeCategory);
+
+>>>>>>> Stashed changes
         Origin savedOrigin = originRepository.save(origin);
         return ResponseEntity.ok(savedOrigin);
     }
@@ -67,4 +84,14 @@ public class OriginController {
         Origin origin = originRepository.findByCodeOrigin(codeOrigin);
         return ResponseEntity.ok(origin);
     }
+<<<<<<< Updated upstream
+=======
+    // Hàm tạo mã ngẫu nhiên cho Origin
+    private String generateOriginCode() {
+        Random random = new Random();
+        int randomCode = random.nextInt(100000);  // Sinh số ngẫu nhiên trong phạm vi từ 0 - 99999
+        return "O" + String.format("%05d", randomCode);  // Đảm bảo mã luôn có 5 chữ số
+    }
+
+>>>>>>> Stashed changes
 }

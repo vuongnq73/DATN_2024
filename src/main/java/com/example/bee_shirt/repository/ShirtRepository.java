@@ -1,5 +1,9 @@
 package com.example.bee_shirt.repository;
 
+<<<<<<< Updated upstream
+=======
+import com.example.bee_shirt.dto.ShirtDetailDTO;
+>>>>>>> Stashed changes
 import com.example.bee_shirt.dto.ShirtResponseDTO;
 import com.example.bee_shirt.entity.Shirt;
 import org.springframework.data.domain.Page;
