@@ -10,18 +10,18 @@ import java.sql.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ShirtResponseDTO {
-    private Integer id;
+    private int id;
     private String codeshirt;
     private String nameshirt;
     private String createBy;
     private String updateBy;
     private Date createAt;
     private Date updateAt;
-    private Integer statusshirt;
+    private int statusshirt;
     private String nameBrand;
     private String nameCategory;
-    private Integer categoryId;
-    private Integer brandId;
+    private int categoryId;
+    private int brandId;
     private boolean deleted;
     private long quantity;
 }
