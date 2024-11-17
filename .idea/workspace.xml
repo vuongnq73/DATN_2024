@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fd9265ae-f338-43dd-a636-9dfe4a2339b3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Bee-ShirtF/assets/js/staff.js" beforeDir="false" afterPath="$PROJECT_DIR$/Bee-ShirtF/assets/js/staff.js" afterDir="false" />
-    </list>
+    <list default="true" id="fd9265ae-f338-43dd-a636-9dfe4a2339b3" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -78,6 +76,7 @@
       <workItem from="1731771053459" duration="1361000" />
       <workItem from="1731817111435" duration="7000" />
       <workItem from="1731845855728" duration="286000" />
+      <workItem from="1731858446309" duration="437000" />
     </task>
     <servers />
   </component>
