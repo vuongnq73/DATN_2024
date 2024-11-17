@@ -1,12 +1,5 @@
 package com.example.bee_shirt.service.lmp;
 
-import com.example.bee_shirt.EntityThuocTinh.Brand;
-import com.example.bee_shirt.EntityThuocTinh.Category;
-import com.example.bee_shirt.dto.ShirtResponseDTO;
-import com.example.bee_shirt.entity.Shirt;
-import com.example.bee_shirt.repository.BrandRepository;
-import com.example.bee_shirt.repository.CategoryRepository;
-import com.example.bee_shirt.repository.ShirtRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

@@ -1,7 +1,6 @@
 package com.example.bee_shirt.service.lmp;
 
 import com.example.bee_shirt.EntityThuocTinh.*;
-import com.example.bee_shirt.dto.ShirtDetailDTO;
 import com.example.bee_shirt.entity.*;
 import com.example.bee_shirt.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;

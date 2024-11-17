@@ -1,9 +1,7 @@
 package com.example.bee_shirt.service;
 
 import com.example.bee_shirt.dto.request.AuthenticationRequest;
-import com.example.bee_shirt.dto.request.IntrospectRequest;
 import com.example.bee_shirt.dto.response.AuthenticationResponse;
-import com.example.bee_shirt.dto.response.IntrospectResponse;
 import com.example.bee_shirt.entity.Account;
 import com.example.bee_shirt.exception.AppException;
 import com.example.bee_shirt.exception.ErrorCode;
