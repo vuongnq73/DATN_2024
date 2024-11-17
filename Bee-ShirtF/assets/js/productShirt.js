@@ -1,108 +1,38 @@
-var ShirtApp = angular.module('beeShirtApp', []);
+var app = angular.module('beeShirtApp', []);
 
-ShirtApp.service('shirtService', ['$http', function($http) {
+app.service('shirtService', ['$http', function($http) {
     const baseUrl = 'http://localhost:8080/shirts';
- 
-    function checkPermission() {
-        const token = sessionStorage.getItem("jwtToken");
-        if (!token) {
-            alert("Bạn chưa đăng nhập!");
-            window.location.href = "/assets/account/login.html"; // Chuyển hướng đến trang đăng nhập
-            return false; // Dừng lại nếu không có token
-        }
-    
-        // Giải mã token và lấy payload
-        const payload = JSON.parse(atob(token.split(".")[1]));
-    
-        const roles = payload.scope ? payload.scope.split(" ") : [];
-    
-        if (!roles.includes("ROLE_STAFF") && !roles.includes("ROLE_ADMIN")) {
-          alert("Bạn không có quyền truy cập vào trang này!");
-          window.history.back();
-          return false;
-        }
-    
-        return true; // Cho phép tiếp tục nếu có quyền
-    }
-    
-    if (!checkPermission()) return; // Kiểm tra quyền trước khi thực hiện bất kỳ hành động nào
-    // Lấy token từ sessionStorage sau khi đã kiểm tra quyền
-const token = sessionStorage.getItem("jwtToken");
-
-function getHighestRole(scopes) {
-    const roles = scopes ? scopes.split(" ") : [];
-    const rolePriority = {
-        ROLE_ADMIN: 1,
-        ROLE_STAFF: 2,
-        ROLE_USER: 3,
-    };
-
-    // Lọc các vai trò hợp lệ và sắp xếp theo độ ưu tiên
-    const validRoles = roles.filter(role => rolePriority[role]);
-    validRoles.sort((a, b) => rolePriority[a] - rolePriority[b]);
-
-    // Trả về vai trò có độ ưu tiên cao nhất
-    return validRoles[0] || null;
-}
 
     this.getShirts = function() {
-        return $http.get(baseUrl + '/api/hienthi', {
-            headers: {
-                Authorization: "Bearer " + token,
-            }
-        });
+        return $http.get(baseUrl + '/api/hienthi');
     };
 
     this.addShirt = function(shirt) {
-        return $http.post(baseUrl + '/add', shirt, {
-            headers: {
-                Authorization: "Bearer " + token,
-            }
-        });
+        return $http.post(baseUrl + '/add', shirt);
     };
 
     this.updateShirt = function(codeshirt, shirt) {
-        return $http.put(baseUrl + '/update/' + codeshirt, shirt, {
-            headers: {
-                Authorization: "Bearer " + token,
-            }
-        });
+        return $http.put(baseUrl + '/update/' + codeshirt, shirt);
     };
 
     this.deleteShirt = function(codeshirt) {
-        return $http.delete(baseUrl + '/delete/' + codeshirt, {
-            headers: {
-                Authorization: "Bearer " + token,
-            }
-        });
+        return $http.delete(baseUrl + '/delete/' + codeshirt);
     };
 
     this.getShirtDetail = function(codeshirt) {
-        return $http.get(baseUrl + '/byCode/' + codeshirt, {
-            headers: {
-                Authorization: "Bearer " + token,
-            }
-        });
+        return $http.get(baseUrl + '/detail/' + codeshirt);
     };
 
     this.getBrands = function() {
-        return $http.get(baseUrl + '/api/brands', {
-            headers: {
-                Authorization: "Bearer " + token,
-            }
-        });
+        return $http.get(baseUrl + '/api/brands');
     };
 
     this.getCategories = function() {
-        return $http.get(baseUrl + '/api/categories', {
-            headers: {
-                Authorization: "Bearer " + token,
-            }
-        });
+        return $http.get(baseUrl + '/api/categories');
     };
 }]);
 
-ShirtApp.controller('ShirtController', ['$scope', 'shirtService', function($scope, shirtService) {
+app.controller('ShirtController', ['$scope', 'shirtService', function($scope, shirtService) {
     $scope.shirts = [];
     $scope.brands = [];
     $scope.categories = [];
@@ -117,11 +47,7 @@ ShirtApp.controller('ShirtController', ['$scope', 'shirtService', function($scop
     $scope.totalPages = function() {
         return Math.ceil($scope.shirts.length / $scope.itemsPerPage);
     };
-    $scope.viewDetails = function (codeshirt) {
-        // Chuyển hướng đến trang chi tiết sản phẩm với mã sản phẩm (codeShirt) như tham số query
-        window.location.href = `ProductDetail.html?codeShirt=${codeshirt}`;
-    };
-    
+
     $scope.getShirtsForCurrentPage = function() {
         const startIndex = ($scope.currentPage - 1) * $scope.itemsPerPage;
         const endIndex = startIndex + $scope.itemsPerPage;
@@ -148,8 +74,6 @@ ShirtApp.controller('ShirtController', ['$scope', 'shirtService', function($scop
     };
 
     $scope.addShirt = function() {
-        $scope.newShirt.statusshirt = 0;
-
         shirtService.addShirt($scope.newShirt).then(function() {
             $scope.getShirts();
             $scope.newShirt = {};
@@ -213,9 +137,11 @@ ShirtApp.controller('ShirtController', ['$scope', 'shirtService', function($scop
     };
     
 
-    $scope.goToShirtDetail = function(codeshirt) {
-        // Điều hướng đến trang chi tiết với mã sản phẩm
-        $location.path('http://localhost:8080/shirt-details/byCode/' + codeshirt);
+    // Xem chi tiết áo thun
+    $scope.viewShirtDetail = function(codeshirt) {
+        shirtService.getShirtDetail(codeshirt).then(function(response) {
+            $scope.selectedShirtDetail = response.data;
+        });
     };
 
     $scope.getShirts();
